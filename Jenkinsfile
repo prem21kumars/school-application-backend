@@ -40,7 +40,7 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy Backend') {
             steps {
                 sh '''
                     docker rm -f "$APP_NAME" || true
@@ -48,7 +48,11 @@ pipeline {
                     docker run -d \
                         --name "$APP_NAME" \
                         --restart unless-stopped \
+                        --network jenkins-mysql_default \
                         -p "$APP_PORT:8080" \
+                        -e SPRING_DATASOURCE_URL="jdbc:mysql://mysql-8081:3306/appdb" \
+                        -e SPRING_DATASOURCE_USERNAME="appuser" \
+                        -e SPRING_DATASOURCE_PASSWORD="AppSecure_2026_X9!" \
                         "$IMAGE_NAME"
                 '''
             }
