@@ -7,10 +7,10 @@ pipeline {
     }
 
     environment {
-        APP_NAME   = 'school-backend'
-        IMAGE_NAME = 'school-backend:latest'
-        APP_PORT   = '8001'
-        
+        APP_NAME    = 'school-backend'
+        IMAGE_NAME  = 'school-backend:latest'
+        APP_PORT    = '8001'
+        DB_PASSWORD = 'AppSecure_2026_X9!'
     }
 
     stages {
@@ -52,7 +52,7 @@ pipeline {
                         -p "$APP_PORT:8080" \
                         -e SPRING_DATASOURCE_URL="jdbc:mysql://mysql-8081:3306/appdb" \
                         -e SPRING_DATASOURCE_USERNAME="appuser" \
-                        -e SPRING_DATASOURCE_PASSWORD="AppSecure_2026_X9!" \
+                        -e SPRING_DATASOURCE_PASSWORD="$DB_PASSWORD" \
                         "$IMAGE_NAME"
                 '''
             }
