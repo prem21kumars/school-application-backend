@@ -16,7 +16,7 @@ pipeline {
         DB_PORT         = '3306'
         DB_NAME         = 'appdb'
         DB_USER         = 'appuser'
-        DB_PASSWORD     = 'AppSecure_2026_X9!'
+        DB_PASSWORD     = 'Website_12321'
 
         DB_URL          = "jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8"
     }
