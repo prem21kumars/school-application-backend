@@ -1,5 +1,7 @@
 D:\Website\school-application-backend\src\main\java\com\quizapp\config\CorsConfig.java
 D:\Website\school-application-backend\src\main\java\com\quizapp\config\DataInitializer.java
+D:\Website\school-application-backend\src\main\java\com\quizapp\config\OpenApiConfig.java
+D:\Website\school-application-backend\src\main\java\com\quizapp\config\SwaggerBasicAuthFilter.java
 D:\Website\school-application-backend\src\main\java\com\quizapp\controller\AssessmentController.java
 D:\Website\school-application-backend\src\main\java\com\quizapp\controller\AuthController.java
 D:\Website\school-application-backend\src\main\java\com\quizapp\controller\BookController.java

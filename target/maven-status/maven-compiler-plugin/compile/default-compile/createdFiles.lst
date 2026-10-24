@@ -54,6 +54,7 @@ com\quizapp\dto\MarkDistributionItemDto.class
 com\quizapp\controller\SystemController.class
 com\quizapp\repository\ChapterRepository.class
 com\quizapp\entity\OfflineAnswerSheetEntity.class
+com\quizapp\config\OpenApiConfig.class
 com\quizapp\entity\NotificationEntity.class
 com\quizapp\service\AuthService.class
 com\quizapp\dto\QuestionPaperSetDto.class
