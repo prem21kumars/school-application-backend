@@ -300,7 +300,8 @@ public class GroqAiService {
             userPrompt.append(distPrompt.toString());
             userPrompt.append("""
 \nRULES:
-1. All questions MUST be strictly derived from facts, definitions, and topics in the excerpt above.
+1. CRITICAL: Every question MUST be 100% unique and distinct. Do NOT generate duplicate or repeated questions. Each question must evaluate a different concept, reaction, equation, or application from the text.
+2. All questions MUST be strictly derived from facts, definitions, and topics in the excerpt above.
 2. For 1-mark questions, use type 'mcq' and provide exactly 4 distinct options with exactly one having isCorrect: true.
 3. For 2-mark and 3-mark questions, use type 'short_answer' with accurate correctAnswerText and markingRubric.
 4. For 4-mark, 5-mark, and 10-mark questions, use type 'long_answer' with a comprehensive correctAnswerText and markingRubric.
