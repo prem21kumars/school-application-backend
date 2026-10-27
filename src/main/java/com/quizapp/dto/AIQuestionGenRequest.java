@@ -11,6 +11,8 @@ public class AIQuestionGenRequest {
     private String difficulty = "medium";
     private Integer count = 5;
     private String customPrompt;
+    private String groqApiKey;
+    private String groqModel;
 
     public AIQuestionGenRequest() {}
 
@@ -34,4 +36,10 @@ public class AIQuestionGenRequest {
 
     public String getCustomPrompt() { return customPrompt; }
     public void setCustomPrompt(String customPrompt) { this.customPrompt = customPrompt; }
+
+    public String getGroqApiKey() { return groqApiKey; }
+    public void setGroqApiKey(String groqApiKey) { this.groqApiKey = groqApiKey; }
+
+    public String getGroqModel() { return groqModel; }
+    public void setGroqModel(String groqModel) { this.groqModel = groqModel; }
 }

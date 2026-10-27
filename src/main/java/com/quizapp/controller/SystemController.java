@@ -105,4 +105,16 @@ public class SystemController {
         return ResponseEntity.ok(res);
     }
 
+
+    @GetMapping("/groq-config")
+    public ResponseEntity<Map<String, Object>> getGroqConfig() {
+        return ResponseEntity.ok(groqAiService.getGroqConfig());
+    }
+
+    @PostMapping("/groq-config")
+    public ResponseEntity<Map<String, Object>> saveGroqConfig(@RequestBody Map<String, String> body) {
+        String apiKey = body.get("apiKey");
+        String model = body.get("model");
+        return ResponseEntity.ok(groqAiService.saveGroqConfig(apiKey, model));
+    }
 }

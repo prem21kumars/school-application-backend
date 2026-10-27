@@ -277,6 +277,33 @@ public class AssessmentService {
 
     public List<QuestionEntity> generateBookQuestions(BookQuestionGenRequest request) {
         BookSourceEntity book = bookSourceRepository.findById(request.getBookId()).orElse(null);
+
+        // 1. Try Groq AI generation first if requested or if Groq API key is provided
+        boolean hasGroqKey = (request.getGroqApiKey() != null && !request.getGroqApiKey().trim().isEmpty())
+                || groqAiService.isAvailable();
+        boolean shouldTryGroq = Boolean.TRUE.equals(request.getUseGroqAi()) || hasGroqKey;
+
+        if (shouldTryGroq && book != null) {
+            try {
+                log.info("Attempting Groq AI generation for uploaded book '{}' (Chapters: {})",
+                        book.getTitle(), request.getChapterNumbers());
+                List<QuestionEntity> groqQuestions = groqAiService.generateBookQuestionsWithGroq(
+                        book,
+                        request.getChapterNumbers(),
+                        request.getMarkDistribution(),
+                        request.getGroqApiKey(),
+                        request.getGroqModel()
+                );
+                if (groqQuestions != null && !groqQuestions.isEmpty()) {
+                    log.info("Successfully generated {} book questions using Groq AI for book: {}",
+                            groqQuestions.size(), book.getTitle());
+                    return groqQuestions;
+                }
+            } catch (Exception e) {
+                log.warn("Groq AI book generation failed, falling back to offline templates: {}", e.getMessage());
+            }
+        }
+
         List<QuestionEntity> generated = new ArrayList<>();
         long timestamp = System.currentTimeMillis();
         int counter = 1;

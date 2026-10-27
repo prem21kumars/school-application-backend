@@ -47,11 +47,8 @@ com\quizapp\service\BookService.class
 com\quizapp\controller\AuthController.class
 com\quizapp\controller\BookController.class
 com\quizapp\repository\BookSourceRepository.class
-com\quizapp\service\AssessmentService.class
-com\quizapp\controller\AssessmentController.class
 com\quizapp\controller\UserController.class
 com\quizapp\dto\MarkDistributionItemDto.class
-com\quizapp\controller\SystemController.class
 com\quizapp\repository\ChapterRepository.class
 com\quizapp\entity\OfflineAnswerSheetEntity.class
 com\quizapp\config\OpenApiConfig.class
