@@ -5,6 +5,7 @@ import com.quizapp.dto.AIQuestionGenRequest;
 import com.quizapp.entity.ChapterEntity;
 import com.quizapp.entity.QuestionEntity;
 import com.quizapp.entity.SubjectEntity;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -20,7 +21,7 @@ public class GroqAiServiceTest {
     public void testIsAvailableWithBlankKey() {
         GroqAiService service = new GroqAiService(new ObjectMapper());
         ReflectionTestUtils.setField(service, "enabled", true);
-        ReflectionTestUtils.setField(service, "apiKey", "");
+        service.setActiveApiKey("");
         assertFalse(service.isAvailable());
     }
 
@@ -29,7 +30,7 @@ public class GroqAiServiceTest {
     public void testIsAvailableWhenDisabled() {
         GroqAiService service = new GroqAiService(new ObjectMapper());
         ReflectionTestUtils.setField(service, "enabled", false);
-        ReflectionTestUtils.setField(service, "apiKey", "gsk_test");
+        service.setActiveApiKey("gsk_test");
         assertFalse(service.isAvailable());
     }
 
@@ -38,18 +39,19 @@ public class GroqAiServiceTest {
     public void testIsAvailableWhenConfigured() {
         GroqAiService service = new GroqAiService(new ObjectMapper());
         ReflectionTestUtils.setField(service, "enabled", true);
-        ReflectionTestUtils.setField(service, "apiKey", "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");
+        service.setActiveApiKey("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");
         assertTrue(service.isAvailable());
     }
 
     @Test
+    @Disabled("Live test calling external Groq API")
     @DisplayName("Live Groq AI generation test with provided key")
     public void testLiveGroqGeneration() {
         GroqAiService service = new GroqAiService(new ObjectMapper());
         ReflectionTestUtils.setField(service, "enabled", true);
-        ReflectionTestUtils.setField(service, "apiKey", "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");
+        service.setActiveApiKey("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");
         ReflectionTestUtils.setField(service, "apiUrl", "https://api.groq.com/openai/v1/chat/completions");
-        ReflectionTestUtils.setField(service, "model", "openai/gpt-oss-120b");
+        service.setActiveModel("openai/gpt-oss-120b");
         ReflectionTestUtils.setField(service, "timeoutSeconds", 30);
 
         SubjectEntity subject = new SubjectEntity("sub-phy", "Physics", "PHYS-10");

@@ -50,6 +50,10 @@ public class GroqAiService {
     private final RestClient restClient;
     private final SystemSettingRepository systemSettingRepository;
 
+    public GroqAiService(ObjectMapper objectMapper) {
+        this(objectMapper, null);
+    }
+
     public GroqAiService(ObjectMapper objectMapper, SystemSettingRepository systemSettingRepository) {
         this.objectMapper = objectMapper;
         this.systemSettingRepository = systemSettingRepository;
@@ -71,6 +75,9 @@ public class GroqAiService {
     }
 
     public synchronized void reloadConfigFromDatabase() {
+        if (systemSettingRepository == null) {
+            return;
+        }
         try {
             systemSettingRepository.findById("groq.api.key").ifPresent(setting -> {
                 if (setting.getValue() != null && !setting.getValue().isBlank()) {
@@ -94,11 +101,15 @@ public class GroqAiService {
         try {
             if (apiKey != null && !apiKey.isBlank()) {
                 this.activeApiKey = apiKey.trim();
-                systemSettingRepository.save(new SystemSettingEntity("groq.api.key", this.activeApiKey));
+                if (systemSettingRepository != null) {
+                    systemSettingRepository.save(new SystemSettingEntity("groq.api.key", this.activeApiKey));
+                }
             }
             if (model != null && !model.isBlank()) {
                 this.activeModel = model.trim();
-                systemSettingRepository.save(new SystemSettingEntity("groq.api.model", this.activeModel));
+                if (systemSettingRepository != null) {
+                    systemSettingRepository.save(new SystemSettingEntity("groq.api.model", this.activeModel));
+                }
             }
             res.put("success", true);
             res.put("message", "Groq AI API settings saved to MySQL database successfully!");
