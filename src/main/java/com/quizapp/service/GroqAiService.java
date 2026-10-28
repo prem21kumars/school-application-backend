@@ -38,7 +38,7 @@ public class GroqAiService {
     @Value("${groq.api.url:https://api.groq.com/openai/v1/chat/completions}")
     private String apiUrl;
 
-    @Value("${groq.api.model:llama-3.3-70b-versatile}")
+    @Value("${groq.api.model:openai/gpt-oss-120b}")
     private String defaultModel;
 
     @Value("${groq.api.timeout-seconds:35}")
@@ -72,7 +72,7 @@ public class GroqAiService {
     @PostConstruct
     public void init() {
         this.activeApiKey = defaultApiKey;
-        this.activeModel = defaultModel != null && !defaultModel.isBlank() ? defaultModel : "llama-3.3-70b-versatile";
+        this.activeModel = defaultModel != null && !defaultModel.isBlank() ? defaultModel : "openai/gpt-oss-120b";
         reloadConfigFromDatabase();
     }
 
@@ -131,7 +131,7 @@ public class GroqAiService {
         Map<String, Object> map = new HashMap<>();
         map.put("enabled", this.enabled);
         map.put("configured", isAvailable());
-        map.put("model", this.activeModel != null ? this.activeModel : "llama-3.3-70b-versatile");
+        map.put("model", this.activeModel != null ? this.activeModel : "openai/gpt-oss-120b");
         map.put("maskedKey", maskApiKey(this.activeApiKey));
         return map;
     }
@@ -141,7 +141,7 @@ public class GroqAiService {
     }
 
     public String getModel() {
-        return activeModel != null ? activeModel : "llama-3.3-70b-versatile";
+        return activeModel != null ? activeModel : "openai/gpt-oss-120b";
     }
 
     public boolean isEnabled() {
